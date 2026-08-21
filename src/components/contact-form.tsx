@@ -2,16 +2,19 @@
 
 import { useState, type FormEvent } from "react";
 import { MessageCircle, Send } from "lucide-react";
+import { getUnitById, units } from "@/data/units";
 import { createWhatsAppUrl } from "@/lib/whatsapp";
 
 type FormValues = {
   name: string;
+  unit: string;
   vehicle: string;
   service: string;
   message: string;
 };
 const initialValues: FormValues = {
   name: "",
+  unit: "",
   vehicle: "",
   service: "",
   message: "",
@@ -28,8 +31,17 @@ export function ContactForm() {
       return;
     }
     setError("");
-    const text = `Olá! Conheci a E-Power pelo site.\nMeu nome é ${values.name}.\nTipo de veículo: ${values.vehicle}.\nServiço desejado: ${values.service}.\nMensagem: ${values.message}`;
-    window.open(createWhatsAppUrl(text), "_blank", "noopener,noreferrer");
+    const unit = getUnitById(values.unit);
+    if (!unit) {
+      setError("Selecione uma unidade de atendimento para continuar.");
+      return;
+    }
+    const text = `Olá! Conheci a E-Power pelo site e gostaria de atendimento na unidade de ${unit.name}.\nMeu nome é ${values.name}.\nTipo de veículo: ${values.vehicle}.\nServiço desejado: ${values.service}.\nMensagem: ${values.message}`;
+    window.open(
+      createWhatsAppUrl(unit, { message: text }),
+      "_blank",
+      "noopener,noreferrer",
+    );
   }
 
   const update = (field: keyof FormValues, value: string) =>
@@ -66,6 +78,21 @@ export function ContactForm() {
             <option>Bike elétrica</option>
             <option>Scooter elétrica</option>
             <option>Outro veículo elétrico</option>
+          </select>
+        </label>
+        <label className="full">
+          <span>Unidade de atendimento</span>
+          <select
+            value={values.unit}
+            onChange={(e) => update("unit", e.target.value)}
+            required
+          >
+            <option value="">Selecione uma unidade</option>
+            {units.map((unit) => (
+              <option value={unit.id} key={unit.id}>
+                {unit.name} — {unit.city}
+              </option>
+            ))}
           </select>
         </label>
         <label className="full">

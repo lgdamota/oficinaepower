@@ -101,7 +101,7 @@ export const serviceCategories: EditorialItem[] = [
 ];
 
 export const workshopFacts = [
-  { title: "Atendimento em Icaraí", icon: Bike },
+  { title: "Unidades no Rio e em Niterói", icon: Bike },
   { title: "Foco em mobilidade elétrica", icon: Zap },
   { title: "Avaliação individual do veículo", icon: ScanSearch },
 ] as const;

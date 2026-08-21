@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { Menu, MessageCircle, X } from "lucide-react";
-import { appointmentMessage, navItems } from "@/data/site";
-import { createWhatsAppUrl } from "@/lib/whatsapp";
+import { navItems } from "@/data/site";
+import { UnitSelectorTrigger } from "./unit-selector";
 import { Logo } from "./ui";
 
 export function Header() {
@@ -68,25 +68,18 @@ export function Header() {
               {item.label}
             </a>
           ))}
-          <a
+          <UnitSelectorTrigger
             className="button primary mobile-cta"
-            href={createWhatsAppUrl(appointmentMessage)}
-            target="_blank"
-            rel="noopener noreferrer"
+            onBeforeOpen={() => setOpen(false)}
           >
             <MessageCircle size={18} />
             Agendar avaliação
-          </a>
+          </UnitSelectorTrigger>
         </nav>
-        <a
-          className="button primary header-cta"
-          href={createWhatsAppUrl(appointmentMessage)}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <UnitSelectorTrigger className="button primary header-cta">
           <MessageCircle size={18} />
           Agendar avaliação
-        </a>
+        </UnitSelectorTrigger>
         <button
           className="menu-toggle"
           type="button"

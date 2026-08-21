@@ -12,6 +12,8 @@ import { ContactForm } from "@/components/contact-form";
 import { FaqAccordion } from "@/components/faq";
 import { FloatingWhatsApp, Footer } from "@/components/footer";
 import { Header } from "@/components/header";
+import { UnitSelectorTrigger } from "@/components/unit-selector";
+import { UnitsSection } from "@/components/units-section";
 import { ExternalLink, InstagramIcon, SectionHeading } from "@/components/ui";
 import {
   serviceCategories,
@@ -19,11 +21,9 @@ import {
   workshopBenefits,
   workshopFacts,
 } from "@/data/content";
-import { appointmentMessage, siteConfig } from "@/data/site";
-import { createWhatsAppUrl } from "@/lib/whatsapp";
+import { siteConfig } from "@/data/site";
 
 export default function Home() {
-  const appointmentUrl = createWhatsAppUrl(appointmentMessage);
   return (
     <>
       <Header />
@@ -52,14 +52,14 @@ export default function Home() {
                 <span>scooter elétrica.</span>
               </h1>
               <p>
-                Diagnóstico, revisão e manutenção com atendimento especializado
-                em Icaraí, Niterói.
+                Oficina especializada em bikes e scooters elétricas no Rio de
+                Janeiro e em Niterói.
               </p>
               <div className="hero-actions">
-                <ExternalLink href={appointmentUrl}>
+                <UnitSelectorTrigger>
                   <MessageCircle />
                   Agendar avaliação
-                </ExternalLink>
+                </UnitSelectorTrigger>
                 <a className="button secondary" href="#servicos">
                   Conhecer os serviços
                   <ArrowDown />
@@ -67,7 +67,7 @@ export default function Home() {
               </div>
               <div className="location-line">
                 <MapPin />
-                Rua Gavião Peixoto, 31 — Icaraí
+                Unidades em Icaraí, Botafogo e Flamengo
               </div>
             </div>
           </div>
@@ -120,9 +120,7 @@ export default function Home() {
               }
               description="Da avaliação inicial à manutenção preventiva, cada serviço é realizado de acordo com as necessidades do veículo."
             />
-            <ExternalLink href={appointmentUrl}>
-              Solicitar uma avaliação
-            </ExternalLink>
+            <UnitSelectorTrigger>Solicitar uma avaliação</UnitSelectorTrigger>
           </div>
           <div className="container services-layout">
             <div className="services-media">
@@ -136,17 +134,13 @@ export default function Home() {
             </div>
             <div className="service-capsules">
               {serviceCategories.map(({ title, description, icon: Icon }) => {
-                const url = createWhatsAppUrl(
-                  `Olá! Conheci a E-Power pelo site e gostaria de agendar uma avaliação para o serviço de ${title}.`,
-                );
                 return (
-                  <a
+                  <UnitSelectorTrigger
                     className="service-capsule"
-                    href={url}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     key={title}
-                    aria-label={`Solicitar avaliação para ${title}`}
+                    ariaLabel={`Solicitar avaliação para ${title}`}
+                    service={title}
+                    showArrow={false}
                   >
                     <span>
                       <Icon />
@@ -156,7 +150,7 @@ export default function Home() {
                       <p>{description}</p>
                     </div>
                     <ArrowRight className="capsule-arrow" />
-                  </a>
+                  </UnitSelectorTrigger>
                 );
               })}
             </div>
@@ -187,8 +181,8 @@ export default function Home() {
               <p className="lead">
                 A E-Power oferece atendimento especializado para quem busca
                 cuidar da segurança, do funcionamento e do desempenho da sua
-                bike ou scooter elétrica. Estamos em Icaraí, com uma estrutura
-                preparada para avaliação e manutenção.
+                bike ou scooter elétrica. Estamos em Icaraí, Botafogo e
+                Flamengo, com estruturas preparadas para avaliação e manutenção.
               </p>
               <div className="fact-list">
                 {workshopFacts.map(({ title, icon: Icon }) => (
@@ -200,12 +194,14 @@ export default function Home() {
                   </div>
                 ))}
               </div>
-              <ExternalLink href={appointmentUrl} className="text-link">
+              <UnitSelectorTrigger className="text-link">
                 Conversar com a equipe
-              </ExternalLink>
+              </UnitSelectorTrigger>
             </div>
           </div>
         </section>
+
+        <UnitsSection />
 
         <section className="section faq-section" id="faq">
           <div className="container faq-shell">
@@ -283,18 +279,18 @@ export default function Home() {
 
         <section className="final-cta">
           <div className="container final-cta-content">
-            <span className="eyebrow">Atendimento em Icaraí</span>
+            <span className="eyebrow">Atendimento no Rio e em Niterói</span>
             <h2>Sua bike ou scooter precisa de atenção?</h2>
             <p>Fale com a E-Power e agende uma avaliação especializada.</p>
             <div>
-              <ExternalLink href={appointmentUrl}>
+              <UnitSelectorTrigger>
                 <MessageCircle />
                 Agendar pelo WhatsApp
-              </ExternalLink>
-              <ExternalLink href={siteConfig.mapsUrl} className="button light">
+              </UnitSelectorTrigger>
+              <a href="#unidades" className="button light">
                 <Navigation />
-                Como chegar
-              </ExternalLink>
+                Ver unidades
+              </a>
             </div>
           </div>
         </section>
@@ -308,7 +304,7 @@ export default function Home() {
                   Vamos avaliar o que seu veículo <span>precisa.</span>
                 </>
               }
-              description="Envie as informações pelo WhatsApp ou visite a oficina em Icaraí."
+              description="Envie as informações pelo WhatsApp ou escolha uma de nossas unidades."
             />
           </div>
           <div className="container contact-grid">
@@ -316,32 +312,27 @@ export default function Home() {
               <h3>{siteConfig.fullName}</h3>
               <p>{siteConfig.tagline}</p>
               <div className="contact-details">
-                <a
-                  href={siteConfig.mapsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href="#unidades">
                   <span>
                     <MapPin />
                   </span>
                   <div>
-                    <small>Endereço</small>
-                    <strong>{siteConfig.address}</strong>
+                    <small>Unidades</small>
+                    <strong>Icaraí, Botafogo e Flamengo</strong>
                   </div>
                 </a>
-                <a
-                  href={appointmentUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <UnitSelectorTrigger
+                  className="contact-detail-action"
+                  showArrow={false}
                 >
                   <span>
                     <MessageCircle />
                   </span>
                   <div>
                     <small>WhatsApp</small>
-                    <strong>{siteConfig.whatsappDisplay}</strong>
+                    <strong>Escolha a unidade de atendimento</strong>
                   </div>
-                </a>
+                </UnitSelectorTrigger>
                 <div>
                   <span>
                     <Clock3 />
@@ -353,17 +344,14 @@ export default function Home() {
                 </div>
               </div>
               <div className="contact-actions">
-                <ExternalLink href={appointmentUrl}>
+                <UnitSelectorTrigger>
                   <MessageCircle />
                   Chamar no WhatsApp
-                </ExternalLink>
-                <ExternalLink
-                  href={siteConfig.mapsUrl}
-                  className="button secondary"
-                >
+                </UnitSelectorTrigger>
+                <a href="#unidades" className="button secondary">
                   <Navigation />
-                  Traçar rota
-                </ExternalLink>
+                  Ver unidades
+                </a>
                 <ExternalLink
                   href={siteConfig.googleReviewsUrl}
                   className="button secondary"
@@ -390,13 +378,13 @@ export default function Home() {
             <div>
               <MapPin />
               <span>
-                <strong>E-Power em Icaraí</strong>
-                {siteConfig.address}
+                <strong>E-Power no Rio e em Niterói</strong>
+                Unidades em Icaraí, Botafogo e Flamengo
               </span>
             </div>
-            <ExternalLink href={siteConfig.mapsUrl} className="text-link">
-              Abrir no Google Maps
-            </ExternalLink>
+            <a href="#unidades" className="text-link">
+              Ver endereços e rotas
+            </a>
           </div>
         </section>
       </main>

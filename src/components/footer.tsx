@@ -1,6 +1,7 @@
 import { MapPin, MessageCircle } from "lucide-react";
 import { navItems, siteConfig } from "@/data/site";
-import { createWhatsAppUrl } from "@/lib/whatsapp";
+import { units } from "@/data/units";
+import { UnitSelectorTrigger } from "./unit-selector";
 import { InstagramIcon, Logo } from "./ui";
 
 export function Footer() {
@@ -24,16 +25,14 @@ export function Footer() {
         </div>
         <div>
           <h3>Fale com a gente</h3>
-          <a
-            href={createWhatsAppUrl(
-              "Olá! Conheci a E-Power pelo site e gostaria de agendar uma avaliação para minha bike ou scooter elétrica.",
-            )}
-            target="_blank"
-            rel="noopener noreferrer"
+          <UnitSelectorTrigger
+            className="footer-action"
+            showArrow={false}
+            ariaLabel="Escolher uma unidade para falar com a E-Power"
           >
             <MessageCircle />
-            {siteConfig.whatsappDisplay}
-          </a>
+            Escolher unidade no WhatsApp
+          </UnitSelectorTrigger>
           {siteConfig.instagramUrl ? (
             <a
               href={siteConfig.instagramUrl}
@@ -51,15 +50,13 @@ export function Footer() {
           )}
         </div>
         <div>
-          <h3>Onde estamos</h3>
-          <a
-            href={siteConfig.mapsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <MapPin />
-            {siteConfig.address}
-          </a>
+          <h3>Nossas unidades</h3>
+          {units.map((unit) => (
+            <a href={`#unidade-${unit.id}`} key={unit.id}>
+              <MapPin />
+              {unit.name} — {unit.city}
+            </a>
+          ))}
         </div>
       </div>
       <div className="container footer-bottom">
@@ -76,17 +73,13 @@ export function Footer() {
 
 export function FloatingWhatsApp() {
   return (
-    <a
+    <UnitSelectorTrigger
       className="floating-whatsapp"
-      href={createWhatsAppUrl(
-        "Olá! Conheci a E-Power pelo site e gostaria de agendar uma avaliação para minha bike ou scooter elétrica.",
-      )}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Conversar com a E-Power no WhatsApp"
+      showArrow={false}
+      ariaLabel="Conversar com a E-Power no WhatsApp"
     >
       <MessageCircle fill="currentColor" />
       <span>Fale no WhatsApp</span>
-    </a>
+    </UnitSelectorTrigger>
   );
 }

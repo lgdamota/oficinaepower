@@ -138,34 +138,89 @@ try {
     "O FAQ não respondeu ao teclado.",
   );
 
-  const waLinks = page.locator("a[href^='https://wa.me/']");
-  const waCount = await waLinks.count();
-  check(waCount >= 9, `Foram encontrados apenas ${waCount} links de WhatsApp.`);
-  for (let index = 0; index < waCount; index += 1) {
-    const href = await waLinks.nth(index).getAttribute("href");
-    check(
-      href?.startsWith("https://wa.me/5521974914677?text="),
-      `Link de WhatsApp inválido: ${href}`,
-    );
-    check(
-      href ? decodeURIComponent(href).includes("Olá!") : false,
-      `Link de WhatsApp sem mensagem: ${href}`,
-    );
-  }
-  const serviceLinks = page.locator(
-    "#servicos .service-capsule[href^='https://wa.me/']",
+  check(
+    (await page.locator("#unidades .unit-card").count()) === 3,
+    "A seção de unidades não contém os três cards esperados.",
   );
-  for (let index = 0; index < (await serviceLinks.count()); index += 1) {
-    const href = await serviceLinks.nth(index).getAttribute("href");
+  const expectedUnits = [
+    ["icarai", "5521974914677", "Icaraí"],
+    ["botafogo", "5521964452129", "Botafogo"],
+    ["flamengo", "5521972161402", "Flamengo"],
+  ];
+  for (const [id, number, name] of expectedUnits) {
+    const card = page.locator(`#unidade-${id}`);
+    const whatsappHref = await card
+      .locator("a[href^='https://wa.me/']")
+      .getAttribute("href");
+    const mapsHref = await card
+      .locator("a[href^='https://www.google.com/maps/search/']")
+      .getAttribute("href");
     check(
-      href
-        ? decodeURIComponent(href).includes(
-            "Conheci a E-Power pelo site e gostaria de agendar uma avaliação para o serviço de",
-          )
+      whatsappHref?.startsWith(`https://wa.me/${number}?text=`),
+      `WhatsApp incorreto no card de ${name}: ${whatsappHref}`,
+    );
+    check(
+      whatsappHref
+        ? decodeURIComponent(whatsappHref).includes(`unidade de ${name}`)
         : false,
-      `Mensagem dinâmica de serviço inválida: ${href}`,
+      `Mensagem sem a unidade ${name}: ${whatsappHref}`,
+    );
+    check(
+      Boolean(mapsHref?.includes("api=1&query=")),
+      `Google Maps incorreto no card de ${name}: ${mapsHref}`,
     );
   }
+
+  const dialog = page.locator(".unit-dialog");
+  const heroTrigger = page
+    .locator("#inicio")
+    .getByRole("button", { name: "Agendar avaliação" });
+  await heroTrigger.click();
+  check(
+    await dialog.evaluate((element) => element.open),
+    "O seletor não abriu.",
+  );
+  check(
+    await page.evaluate(() => document.body.classList.contains("dialog-open")),
+    "O scroll do body não foi bloqueado com o seletor aberto.",
+  );
+  check(
+    await page.locator(".unit-dialog-option").first().isFocused(),
+    "O foco inicial não foi levado para uma opção do seletor.",
+  );
+  await page.keyboard.press("Escape");
+  check(
+    !(await dialog.evaluate((element) => element.open)),
+    "O seletor não fechou com Escape.",
+  );
+  check(await heroTrigger.isFocused(), "O foco não retornou ao CTA de origem.");
+
+  await page.evaluate(() => {
+    window.open = (url) => {
+      window.__openedUrl = String(url);
+      return null;
+    };
+  });
+  await page.locator("#servicos .service-capsule").first().click();
+  await page.getByRole("button", { name: /unidade de Botafogo/ }).click();
+  const serviceUrl = await page.evaluate(() => window.__openedUrl ?? "");
+  check(
+    serviceUrl.startsWith("https://wa.me/5521964452129?text="),
+    "A seleção de Botafogo não abriu o número correto.",
+  );
+  check(
+    decodeURIComponent(serviceUrl).includes(
+      "para Freios na unidade de Botafogo",
+    ),
+    "A mensagem do serviço não preservou serviço e unidade.",
+  );
+
+  await page.locator(".floating-whatsapp").click();
+  check(
+    await dialog.evaluate((element) => element.open),
+    "O botão flutuante não abriu o seletor.",
+  );
+  await page.getByRole("button", { name: "Fechar seleção de unidade" }).click();
 
   const form = page.locator(".contact-form");
   await form.getByRole("button", { name: "Enviar pelo WhatsApp" }).click();
@@ -177,25 +232,23 @@ try {
   await form
     .getByLabel("Tipo de veículo")
     .selectOption({ label: "Bike elétrica" });
+  await form
+    .getByLabel("Unidade de atendimento")
+    .selectOption({ label: "Flamengo — Rio de Janeiro" });
   await form.getByLabel("Serviço desejado").fill("Avaliação");
   await form.getByLabel("Mensagem").fill("Gostaria de avaliar meu veículo.");
 
-  await page.evaluate(() => {
-    window.open = (url) => {
-      window.__openedUrl = String(url);
-      return null;
-    };
-  });
   await form.getByRole("button", { name: "Enviar pelo WhatsApp" }).click();
   const openedUrl = await page.evaluate(() => window.__openedUrl ?? "");
   const decodedFormUrl = decodeURIComponent(openedUrl);
   check(
-    openedUrl.startsWith("https://wa.me/5521974914677?text="),
+    openedUrl.startsWith("https://wa.me/5521972161402?text="),
     "O formulário não abriu a URL correta do WhatsApp.",
   );
   check(
     decodedFormUrl.includes("Cliente Teste") &&
       decodedFormUrl.includes("Bike elétrica") &&
+      decodedFormUrl.includes("unidade de Flamengo") &&
       decodedFormUrl.includes("Gostaria de avaliar meu veículo."),
     "A mensagem montada pelo formulário está incompleta.",
   );
@@ -204,7 +257,7 @@ try {
     .locator(`a[href^="https://www.google.com/maps/search/"]`)
     .count();
   check(
-    mapLinks >= 3,
+    mapLinks === 3,
     "Links do Google Maps não foram encontrados nas áreas esperadas.",
   );
 

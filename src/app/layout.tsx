@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Sora } from "next/font/google";
+import { UnitSelectorProvider } from "@/components/unit-selector";
 import { siteConfig } from "@/data/site";
+import { units } from "@/data/units";
 import "./globals.css";
 
 const inter = Inter({
@@ -20,21 +22,24 @@ export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   ),
-  title: "E-Power | Oficina de Bikes e Scooters Elétricas em Icaraí",
+  title: "E-Power | Oficina de Bikes e Scooters Elétricas no Rio e em Niterói",
   description:
-    "Oficina especializada em manutenção, diagnóstico e revisão de bikes e scooters elétricas em Icaraí, Niterói.",
+    "Manutenção e assistência especializada para bikes e scooters elétricas, com unidades em Icaraí, Botafogo e Flamengo.",
   keywords: [
     "Oficina de bike elétrica em Niterói",
     "Manutenção de scooter elétrica",
     "Assistência técnica para bike elétrica",
     "Oficina de scooter elétrica em Icaraí",
+    "Oficina de bike elétrica em Botafogo",
+    "Oficina de bike elétrica no Flamengo",
     "Revisão de bike elétrica",
     "Manutenção de mobilidade elétrica",
   ],
   openGraph: {
-    title: "E-Power | Oficina de Bikes e Scooters Elétricas em Icaraí",
+    title:
+      "E-Power | Oficina de Bikes e Scooters Elétricas no Rio e em Niterói",
     description:
-      "Oficina especializada em manutenção, diagnóstico e revisão de bikes e scooters elétricas em Icaraí, Niterói.",
+      "Manutenção e assistência especializada para bikes e scooters elétricas, com unidades em Icaraí, Botafogo e Flamengo.",
     type: "website",
     locale: "pt_BR",
     images: [
@@ -42,28 +47,28 @@ export const metadata: Metadata = {
         url: "/images/epower-hero.svg",
         width: 1200,
         height: 630,
-        alt: "E-Power — oficina de bikes e scooters elétricas em Icaraí",
+        alt: "E-Power — oficina de bikes e scooters elétricas no Rio e em Niterói",
       },
     ],
   },
   icons: { icon: "/icon.svg" },
 };
 
-const structuredData = {
+const structuredData = units.map((unit) => ({
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  name: siteConfig.fullName,
+  name: `${siteConfig.fullName} — ${unit.name}`,
   description:
-    "Oficina especializada em manutenção, diagnóstico e revisão de bikes e scooters elétricas em Icaraí, Niterói.",
-  telephone: `+${siteConfig.whatsappNumber}`,
+    "Oficina especializada em manutenção, diagnóstico e revisão de bikes e scooters elétricas.",
+  telephone: `+${unit.whatsapp}`,
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Rua Gavião Peixoto, 31",
-    addressLocality: "Niterói",
+    streetAddress: unit.address,
+    addressLocality: unit.city,
     addressRegion: "RJ",
     addressCountry: "BR",
   },
-};
+}));
 
 export default function RootLayout({
   children,
@@ -78,7 +83,7 @@ export default function RootLayout({
         <a className="skip-link" href="#conteudo">
           Pular para o conteúdo
         </a>
-        {children}
+        <UnitSelectorProvider>{children}</UnitSelectorProvider>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
