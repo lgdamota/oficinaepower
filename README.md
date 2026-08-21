@@ -1,6 +1,6 @@
-# E-Power — Oficina de Bikes e Scooters Elétricas
+# E-Power — landing page editorial
 
-Landing page responsiva em Next.js, React, TypeScript, Tailwind CSS e Lucide React.
+Site institucional da oficina E-Power, especializada em manutenção de bikes e scooters elétricas em Icaraí, Niterói. Construído com Next.js, React, TypeScript e Lucide React.
 
 ## Executar localmente
 
@@ -10,7 +10,25 @@ npm run dev
 
 Abra `http://localhost:3000`.
 
-## Validações
+## Onde editar o conteúdo
+
+- **Serviços, benefícios, perguntas, feedbacks e caminhos das imagens:** `src/data/content.ts`
+- **WhatsApp, endereço, horário, Instagram, avaliações do Google e mapa:** `src/data/site.ts`
+- **Textos e composição das seções:** `src/app/page.tsx`
+- **Paleta, tipografia e responsividade:** `src/app/globals.css`
+- **Metadados e dados estruturados:** `src/app/layout.tsx`
+
+## Fotografias
+
+Os arquivos atuais em `public/images/` são áreas provisórias, pois fotografias reais não estavam disponíveis no repositório durante o redesign. Substitua-os por fotos reais da E-Power mantendo os mesmos nomes, ou altere os caminhos no objeto `siteImages` em `src/data/content.ts`.
+
+Prefira WebP/AVIF em boa resolução. O layout usa `object-fit: cover`; o foco de cada fotografia pode ser refinado com `object-position` em `src/app/globals.css`.
+
+## Feedbacks
+
+O array `testimonials` começa vazio para impedir a publicação de depoimentos fictícios. Preencha apenas com avaliações reais e autorizadas. O link oficial de avaliações deve ser informado em `siteConfig.googleReviewsUrl`.
+
+## Validação
 
 ```bash
 npm run lint
@@ -18,41 +36,12 @@ npm run typecheck
 npm run build
 ```
 
-Com o servidor local ativo, execute a validação automatizada de responsividade e interações no Chrome instalado:
+Com o servidor local ativo, execute:
 
 ```bash
 npm run validate:ui
 ```
 
-O roteiro cobre as larguras de 320, 375, 430, 768, 1024, 1440 e 1920 px, overflow horizontal, erros de console, menu mobile, navegação, FAQ, links de WhatsApp, formulário e Google Maps.
+O roteiro cobre 320, 375, 430, 768, 1024, 1440 e 1920 px, overflow horizontal, console, menu mobile, navegação interna, FAQ, WhatsApp, formulário e Google Maps.
 
-## Onde editar o conteúdo
-
-- **Dados da oficina, horário, Instagram, Google Maps e avaliações:** `src/data/site.ts`
-- **Serviços e feedbacks provisórios:** `src/data/content.ts`
-- **Perguntas frequentes:** `src/data/content.ts`, no array `faqItems`
-- **Mensagens e número do WhatsApp:** `src/data/site.ts` e `src/lib/whatsapp.ts`
-- **Imagens:** `public/images/`
-- **Metadados e dados estruturados:** `src/app/layout.tsx`
-- **Cores, espaçamentos e responsividade:** `src/app/globals.css`
-- **Crédito de desenvolvimento:** campo `developmentCredit` em `src/data/site.ts`
-
-## Substituição das imagens
-
-Os arquivos SVG em `public/images/` são placeholders locais claramente identificados. Ao receber as fotos reais, prefira convertê-las para WebP/AVIF e atualize os caminhos no `src/app/page.tsx`.
-
-Nomes recomendados:
-
-- `epower-hero.webp`
-- `epower-fachada.webp`
-- `epower-oficina.webp`
-
-## Publicação e Open Graph
-
-Defina `NEXT_PUBLIC_SITE_URL` com a URL pública do site para gerar URLs absolutas corretas nos metadados, por exemplo:
-
-```env
-NEXT_PUBLIC_SITE_URL=https://www.dominio-da-epower.com.br
-```
-
-Nenhum horário, avaliação, marca atendida ou procedimento técnico não confirmado foi adicionado. A lista de serviços em `src/data/content.ts` é editorial e deve ser validada com a E-Power antes da publicação final.
+Para metadados absolutos, configure `NEXT_PUBLIC_SITE_URL` com a URL pública do site.

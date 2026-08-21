@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: "E-Power",
-  fullName: "E-Power — Oficina de Bikes e Scooters Elétricas",
+  fullName: "E-Power — Bike & Scooter Elétrica",
   tagline: "A sua oficina especializada em bikes e scooters elétricas.",
   address: "Rua Gavião Peixoto, 31 — Icaraí, Niterói/RJ",
   whatsappDisplay: "(21) 97491-4677",
@@ -15,7 +15,7 @@ export const siteConfig = {
 
 export const navItems = [
   { label: "Início", href: "#inicio", id: "inicio" },
-  { label: "Sobre nós", href: "#sobre", id: "sobre" },
+  { label: "Sobre", href: "#sobre", id: "sobre" },
   { label: "Serviços", href: "#servicos", id: "servicos" },
   { label: "Feedbacks", href: "#feedbacks", id: "feedbacks" },
   { label: "Perguntas frequentes", href: "#faq", id: "faq" },
@@ -23,4 +23,4 @@ export const navItems = [
 ] as const;
 
 export const appointmentMessage =
-  "Olá! Conheci a E-Power pelo site e gostaria de agendar um atendimento para minha bike ou scooter elétrica.";
+  "Olá! Conheci a E-Power pelo site e gostaria de agendar uma avaliação para minha bike ou scooter elétrica.";

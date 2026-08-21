@@ -1,24 +1,24 @@
 import Image from "next/image";
 import {
   ArrowDown,
+  ArrowRight,
   Clock3,
   MapPin,
   MessageCircle,
   Navigation,
-  Quote,
   Star,
-  Zap,
 } from "lucide-react";
-import { Header } from "@/components/header";
-import { FaqAccordion } from "@/components/faq";
 import { ContactForm } from "@/components/contact-form";
+import { FaqAccordion } from "@/components/faq";
 import { FloatingWhatsApp, Footer } from "@/components/footer";
+import { Header } from "@/components/header";
 import { ExternalLink, InstagramIcon, SectionHeading } from "@/components/ui";
 import {
-  services,
+  serviceCategories,
+  siteImages,
   testimonials,
-  trustPoints,
-  workshopFeatures,
+  workshopBenefits,
+  workshopFacts,
 } from "@/data/content";
 import { appointmentMessage, siteConfig } from "@/data/site";
 import { createWhatsAppUrl } from "@/lib/whatsapp";
@@ -30,96 +30,176 @@ export default function Home() {
       <Header />
       <main id="conteudo">
         <section className="hero" id="inicio">
-          <Image
-            className="hero-image"
-            src="/images/epower-hero.svg"
-            alt="Espaço reservado para foto principal de uma bike ou scooter elétrica da E-Power"
-            fill
-            priority
-            sizes="100vw"
-          />
-          <div className="hero-overlay" />
-          <div className="hero-lines" aria-hidden="true" />
-          <div className="container hero-content">
+          <div className="hero-word" aria-hidden="true">
+            E-POWER
+          </div>
+          <div className="container hero-grid">
+            <div className="hero-media editorial-image">
+              <Image
+                src={siteImages.hero}
+                alt="Imagem ilustrativa de uma bicicleta elétrica em uma oficina moderna"
+                fill
+                priority
+                sizes="(max-width: 800px) 100vw, 55vw"
+              />
+              <span className="photo-note">Imagem ilustrativa</span>
+            </div>
             <div className="hero-copy">
-              <span className="hero-badge">
-                <span>
-                  <Zap size={15} fill="currentColor" />
-                </span>
-                Assistência técnica especializada em Niterói
+              <span className="eyebrow">
+                Oficina especializada em mobilidade elétrica
               </span>
               <h1>
-                Cuidado especializado para sua <em>mobilidade elétrica.</em>
+                Manutenção especializada para sua bike ou{" "}
+                <span>scooter elétrica.</span>
               </h1>
               <p>
-                Diagnóstico, revisão e manutenção de bikes e scooters elétricas
-                em Icaraí.
+                Diagnóstico, revisão e manutenção com atendimento especializado
+                em Icaraí, Niterói.
               </p>
               <div className="hero-actions">
                 <ExternalLink href={appointmentUrl}>
-                  <MessageCircle size={19} />
-                  Agendar atendimento
+                  <MessageCircle />
+                  Agendar avaliação
                 </ExternalLink>
                 <a className="button secondary" href="#servicos">
                   Conhecer os serviços
-                  <ArrowDown size={18} />
+                  <ArrowDown />
                 </a>
               </div>
               <div className="location-line">
-                <MapPin size={17} />
-                {siteConfig.address}
+                <MapPin />
+                Rua Gavião Peixoto, 31 — Icaraí
               </div>
             </div>
           </div>
-          <div className="trust-strip">
-            <div className="container trust-grid">
-              {trustPoints.map(({ title, icon: Icon }) => (
-                <div key={title}>
-                  <span>
-                    <Icon />
-                  </span>
-                  <strong>{title}</strong>
-                </div>
-              ))}
+        </section>
+
+        <section className="section benefits">
+          <div className="container">
+            <SectionHeading
+              eyebrow="Cuidado técnico"
+              title={
+                <>
+                  Por que cuidar da sua mobilidade elétrica com a{" "}
+                  <span>E-Power?</span>
+                </>
+              }
+              description="Uma oficina preparada para avaliar os sistemas mecânicos e elétricos da sua bike ou scooter."
+            />
+            <div className="benefits-layout">
+              <div className="benefit-column">
+                {workshopBenefits.slice(0, 3).map((item) => (
+                  <Benefit key={item.title} {...item} />
+                ))}
+              </div>
+              <div className="benefits-media editorial-image">
+                <Image
+                  src={siteImages.benefits}
+                  alt="Imagem ilustrativa de uma bicicleta elétrica em manutenção"
+                  fill
+                  sizes="(max-width: 800px) 100vw, 38vw"
+                />
+                <span className="photo-note">Imagem ilustrativa</span>
+              </div>
+              <div className="benefit-column">
+                {workshopBenefits.slice(3).map((item) => (
+                  <Benefit key={item.title} {...item} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="section services-section" id="servicos">
+          <div className="container services-intro">
+            <SectionHeading
+              eyebrow="Serviços mecânicos e técnicos"
+              title={
+                <>
+                  Cuidado completo para o seu <span>veículo elétrico</span>
+                </>
+              }
+              description="Da avaliação inicial à manutenção preventiva, cada serviço é realizado de acordo com as necessidades do veículo."
+            />
+            <ExternalLink href={appointmentUrl}>
+              Solicitar uma avaliação
+            </ExternalLink>
+          </div>
+          <div className="container services-layout">
+            <div className="service-capsules">
+              {serviceCategories.map(({ title, description, icon: Icon }) => {
+                const url = createWhatsAppUrl(
+                  `Olá! Conheci a E-Power pelo site e gostaria de agendar uma avaliação para o serviço de ${title}.`,
+                );
+                return (
+                  <a
+                    className="service-capsule"
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    key={title}
+                    aria-label={`Solicitar avaliação para ${title}`}
+                  >
+                    <span>
+                      <Icon />
+                    </span>
+                    <div>
+                      <h3>{title}</h3>
+                      <p>{description}</p>
+                    </div>
+                    <ArrowRight className="capsule-arrow" />
+                  </a>
+                );
+              })}
+            </div>
+            <div className="services-media editorial-image">
+              <Image
+                src={siteImages.services}
+                alt="Imagem ilustrativa de uma oficina especializada em bicicletas elétricas"
+                fill
+                sizes="(max-width: 900px) 100vw, 45vw"
+              />
+              <span className="photo-note photo-note-top">
+                Imagem ilustrativa
+              </span>
+              <div className="media-caption">
+                <strong>Manutenção com atenção aos detalhes.</strong>
+                <span>Oficina E-Power — Icaraí</span>
+              </div>
             </div>
           </div>
         </section>
 
         <section className="section about" id="sobre">
-          <div className="container split-grid">
-            <div className="image-composition reveal-frame">
+          <div className="container about-grid">
+            <div className="about-media editorial-image">
               <Image
-                src="/images/epower-fachada.svg"
-                alt="Espaço reservado para foto da fachada ou interior da oficina E-Power"
+                src={siteImages.about}
+                alt="Imagem ilustrativa da entrada de uma oficina de mobilidade elétrica"
                 fill
                 sizes="(max-width: 800px) 100vw, 50vw"
               />
-              <span className="image-label">
-                <Zap fill="currentColor" />
-                Sua oficina em Icaraí
-              </span>
-              <div className="corner-mark" aria-hidden="true">
-                E<span>/</span>P
-              </div>
+              <span className="photo-note">Imagem ilustrativa</span>
             </div>
             <div className="about-copy">
               <SectionHeading
-                eyebrow="Sobre a E-Power"
+                eyebrow="Sobre a oficina"
                 title={
                   <>
-                    Especialistas em <span>mobilidade elétrica</span>
+                    Uma oficina especializada em bikes e{" "}
+                    <span>scooters elétricas</span>
                   </>
                 }
               />
               <p className="lead">
-                A E-Power é uma oficina especializada em manutenção e
-                assistência técnica para bikes e scooters elétricas. Localizada
-                em Icaraí, oferecemos atendimento direcionado às necessidades de
-                cada veículo, com foco em segurança, transparência e confiança.
+                A E-Power oferece atendimento especializado para quem busca
+                cuidar da segurança, do funcionamento e do desempenho da sua
+                bike ou scooter elétrica. Estamos em Icaraí, com uma estrutura
+                preparada para avaliação e manutenção.
               </p>
-              <div className="service-grid">
-                {workshopFeatures.map(({ title, icon: Icon }) => (
-                  <div className="service-item" key={title}>
+              <div className="fact-list">
+                {workshopFacts.map(({ title, icon: Icon }) => (
+                  <div key={title}>
                     <span>
                       <Icon />
                     </span>
@@ -128,296 +208,234 @@ export default function Home() {
                 ))}
               </div>
               <ExternalLink href={appointmentUrl} className="text-link">
-                Falar com um especialista
+                Conversar com a equipe
               </ExternalLink>
             </div>
           </div>
         </section>
 
-        <section className="section services-section" id="servicos">
-          <div className="container">
-            <SectionHeading
-              eyebrow="Cuidados para sua mobilidade elétrica"
-              title={
-                <>
-                  Serviços <span>especializados</span>
-                </>
-              }
-              description="Conheça as possibilidades de atendimento e consulte nossa equipe para confirmar o serviço adequado ao seu veículo."
-              align="center"
+        <section className="section faq-section" id="faq">
+          <div className="container faq-shell">
+            <Image
+              src={siteImages.faq}
+              alt="Imagem ilustrativa de uma scooter elétrica em uma oficina moderna"
+              fill
+              sizes="100vw"
             />
-            <div className="specialized-services-grid">
-              {services.map((service) => {
-                const evaluationUrl = createWhatsAppUrl(
-                  `Olá! Conheci a E-Power pelo site e gostaria de solicitar uma avaliação para o serviço de ${service.title}.`,
-                );
-                const Icon = service.icon;
-                return (
-                  <article
-                    className="specialized-service-card"
-                    key={service.title}
-                  >
-                    <span className="specialized-service-icon">
-                      <Icon aria-hidden="true" />
-                    </span>
-                    <h3>{service.title}</h3>
-                    <p>{service.description}</p>
-                    <ExternalLink
-                      href={evaluationUrl}
-                      className="button primary card-button"
-                      label={`Solicitar avaliação para ${service.title} pelo WhatsApp`}
-                    >
-                      Solicitar avaliação
-                    </ExternalLink>
-                  </article>
-                );
-              })}
-            </div>
-            <p className="services-disclaimer">
-              Os serviços apresentados são possibilidades de atendimento. A
-              realização depende da avaliação e da confirmação da equipe
-              E-Power.
-            </p>
-          </div>
-        </section>
-
-        <section className="section workshop" id="assistencia">
-          <div className="workshop-glow" aria-hidden="true" />
-          <div className="container workshop-grid">
-            <div className="workshop-copy">
+            <div className="faq-overlay" />
+            <span className="photo-note">Imagem ilustrativa</span>
+            <div className="faq-card">
               <SectionHeading
-                eyebrow="Assistência técnica"
+                eyebrow="Perguntas frequentes"
                 title={
                   <>
-                    Seu veículo elétrico merece{" "}
-                    <span>atendimento especializado.</span>
+                    Ficou com alguma <span>dúvida?</span>
                   </>
                 }
+                description="Informações objetivas sobre avaliação e manutenção na oficina."
               />
-              <p>
-                Diagnóstico, revisão e manutenção especializada para cuidar da
-                segurança e do desempenho da sua bike ou scooter elétrica.
-              </p>
-              <div className="workshop-features">
-                {workshopFeatures.map(({ title, icon: Icon }) => (
-                  <div key={title}>
-                    <Icon />
-                    <span>{title}</span>
-                  </div>
-                ))}
-              </div>
-              <ExternalLink
-                href={createWhatsAppUrl(
-                  "Olá! Gostaria de solicitar uma avaliação para minha bike ou scooter elétrica.",
-                )}
-              >
-                <MessageCircle size={18} />
-                Solicitar avaliação pelo WhatsApp
-              </ExternalLink>
-            </div>
-            <div className="image-composition workshop-image">
-              <Image
-                src="/images/epower-oficina.svg"
-                alt="Espaço reservado para foto de veículo elétrico em avaliação na oficina E-Power"
-                fill
-                sizes="(max-width: 800px) 100vw, 50vw"
-                loading="lazy"
-              />
-              <div className="tech-stamp">
-                <Zap fill="currentColor" />
-                <span>
-                  <strong>Assistência</strong>especializada
-                </span>
-              </div>
+              <FaqAccordion />
             </div>
           </div>
         </section>
 
         <section className="section testimonials" id="feedbacks">
           <div className="container">
-            <SectionHeading
-              eyebrow="Experiências E-Power"
-              title={
-                <>
-                  O que nossos <span>clientes dizem</span>
-                </>
-              }
-              description="Este espaço será atualizado com avaliações reais e verificadas de clientes."
-              align="center"
-            />
-            <div className="testimonial-grid">
-              {testimonials.map((item, index) => (
-                <article
-                  className="testimonial-card"
-                  key={`${item.name}-${index}`}
-                >
-                  <Quote className="quote-icon" />
-                  <div
-                    className="stars"
-                    aria-label={`${item.rating} de 5 estrelas`}
-                  >
-                    {Array.from({ length: item.rating }).map((_, star) => (
-                      <Star key={star} fill="currentColor" />
-                    ))}
-                  </div>
-                  <p>“{item.text}”</p>
-                  <div className="reviewer">
-                    <span aria-hidden="true">{index + 1}</span>
-                    <div>
-                      <strong>{item.name}</strong>
-                      <small>Conteúdo provisório • Cliente E-Power</small>
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
-            <div className="reviews-cta">
-              {siteConfig.googleReviewsUrl ? (
+            <div className="reviews-heading">
+              <SectionHeading
+                eyebrow="Experiências reais"
+                title={
+                  <>
+                    O que nossos <span>clientes dizem</span>
+                  </>
+                }
+                description="Transparência também significa publicar somente avaliações reais e verificadas."
+              />
+              {siteConfig.googleReviewsUrl && (
                 <ExternalLink
                   href={siteConfig.googleReviewsUrl}
                   className="button secondary"
                 >
-                  Confira nossas avaliações no Google
+                  Ver no Google
                 </ExternalLink>
-              ) : (
-                <span>
-                  <Star fill="currentColor" />
-                  Link oficial das avaliações será adicionado em breve
-                </span>
               )}
             </div>
+            {testimonials.length ? (
+              <div className="testimonial-grid">
+                {testimonials.map((item) => (
+                  <article
+                    className="testimonial-card"
+                    key={`${item.name}-${item.text}`}
+                  >
+                    <div
+                      className="stars"
+                      aria-label={`${item.rating} de 5 estrelas`}
+                    >
+                      {Array.from({ length: item.rating }).map((_, index) => (
+                        <Star key={index} fill="currentColor" />
+                      ))}
+                    </div>
+                    <p>“{item.text}”</p>
+                    <strong>{item.name}</strong>
+                  </article>
+                ))}
+              </div>
+            ) : (
+              <div className="reviews-empty">
+                <div>
+                  <Star />
+                  <strong>Avaliações reais em breve</strong>
+                </div>
+                <p>
+                  Este espaço está preparado para receber feedbacks verdadeiros
+                  e autorizados. Enquanto o link oficial do Google não estiver
+                  cadastrado, nenhum depoimento fictício será exibido.
+                </p>
+              </div>
+            )}
           </div>
         </section>
 
-        <section className="section faq-section" id="faq">
-          <div className="container faq-grid">
-            <div className="faq-intro">
-              <SectionHeading
-                eyebrow="Tire suas dúvidas"
-                title={
-                  <>
-                    Perguntas <span>frequentes</span>
-                  </>
-                }
-                description="Encontre respostas rápidas ou fale diretamente com nossa equipe."
-              />
-              <div className="faq-help">
+        <section className="final-cta">
+          <Image
+            src={siteImages.finalCta}
+            alt="Imagem ilustrativa de bicicleta e scooter elétricas em uma oficina"
+            fill
+            sizes="100vw"
+          />
+          <div className="final-cta-overlay" />
+          <span className="photo-note">Imagem ilustrativa</span>
+          <div className="container final-cta-content">
+            <span className="eyebrow">Atendimento em Icaraí</span>
+            <h2>Sua bike ou scooter precisa de atenção?</h2>
+            <p>Fale com a E-Power e agende uma avaliação especializada.</p>
+            <div>
+              <ExternalLink href={appointmentUrl}>
                 <MessageCircle />
-                <div>
-                  <strong>Ainda tem alguma dúvida?</strong>
-                  <p>Converse com a E-Power pelo WhatsApp.</p>
-                  <ExternalLink href={appointmentUrl} className="text-link">
-                    Falar com a equipe
-                  </ExternalLink>
-                </div>
-              </div>
+                Agendar pelo WhatsApp
+              </ExternalLink>
+              <ExternalLink href={siteConfig.mapsUrl} className="button light">
+                <Navigation />
+                Como chegar
+              </ExternalLink>
             </div>
-            <FaqAccordion />
           </div>
         </section>
 
         <section className="section contact" id="contato">
-          <div className="container">
+          <div className="container contact-heading">
             <SectionHeading
-              eyebrow="Estamos em Icaraí"
+              eyebrow="Contato"
               title={
                 <>
-                  Cuide da sua mobilidade elétrica <span>com atenção.</span>
+                  Vamos avaliar o que seu veículo <span>precisa.</span>
                 </>
               }
-              description="Entre em contato para agendar atendimento ou solicitar uma avaliação na E-Power."
-              align="center"
+              description="Envie as informações pelo WhatsApp ou visite a oficina em Icaraí."
             />
-            <div className="contact-grid">
-              <div className="contact-info">
-                <h3>{siteConfig.fullName}</h3>
-                <p>{siteConfig.tagline}</p>
-                <div className="contact-details">
-                  <a
-                    href={siteConfig.mapsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <span>
-                      <MapPin />
-                    </span>
-                    <div>
-                      <small>Endereço</small>
-                      <strong>{siteConfig.address}</strong>
-                    </div>
-                  </a>
-                  <a
-                    href={createWhatsAppUrl(
-                      "Olá! Conheci a E-Power pelo site.",
-                    )}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <span>
-                      <MessageCircle />
-                    </span>
-                    <div>
-                      <small>WhatsApp</small>
-                      <strong>{siteConfig.whatsappDisplay}</strong>
-                    </div>
-                  </a>
+          </div>
+          <div className="container contact-grid">
+            <div className="contact-info">
+              <h3>{siteConfig.fullName}</h3>
+              <p>{siteConfig.tagline}</p>
+              <div className="contact-details">
+                <a
+                  href={siteConfig.mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span>
+                    <MapPin />
+                  </span>
                   <div>
-                    <span>
-                      <Clock3 />
-                    </span>
-                    <div>
-                      <small>Horário</small>
-                      <strong>{siteConfig.hours}</strong>
-                    </div>
+                    <small>Endereço</small>
+                    <strong>{siteConfig.address}</strong>
+                  </div>
+                </a>
+                <a
+                  href={appointmentUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span>
+                    <MessageCircle />
+                  </span>
+                  <div>
+                    <small>WhatsApp</small>
+                    <strong>{siteConfig.whatsappDisplay}</strong>
+                  </div>
+                </a>
+                <div>
+                  <span>
+                    <Clock3 />
+                  </span>
+                  <div>
+                    <small>Horário</small>
+                    <strong>{siteConfig.hours}</strong>
                   </div>
                 </div>
-                <div className="contact-actions">
-                  <ExternalLink href={appointmentUrl}>
-                    <MessageCircle size={18} />
-                    Chamar no WhatsApp
-                  </ExternalLink>
-                  <ExternalLink
-                    href={siteConfig.mapsUrl}
-                    className="button secondary"
-                  >
-                    <Navigation size={18} />
-                    Como chegar
-                  </ExternalLink>
-                </div>
-                {siteConfig.instagramUrl ? (
-                  <a
-                    className="social-link"
-                    href={siteConfig.instagramUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <InstagramIcon />
-                    Siga a E-Power no Instagram
-                  </a>
-                ) : (
-                  <span className="social-link disabled">
-                    <InstagramIcon />
-                    Instagram oficial em breve
-                  </span>
-                )}
               </div>
-              <ContactForm />
-            </div>
-            <div className="map-placeholder">
-              <div>
-                <MapPin />
-                <strong>E-Power em Icaraí</strong>
-                <span>{siteConfig.address}</span>
-                <ExternalLink href={siteConfig.mapsUrl} className="text-link">
-                  Abrir no Google Maps
+              <div className="contact-actions">
+                <ExternalLink href={appointmentUrl}>
+                  <MessageCircle />
+                  Chamar no WhatsApp
+                </ExternalLink>
+                <ExternalLink
+                  href={siteConfig.mapsUrl}
+                  className="button secondary"
+                >
+                  <Navigation />
+                  Traçar rota
                 </ExternalLink>
               </div>
+              {siteConfig.instagramUrl && (
+                <a
+                  className="social-link"
+                  href={siteConfig.instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <InstagramIcon />
+                  Instagram da E-Power
+                </a>
+              )}
             </div>
+            <ContactForm />
+          </div>
+          <div className="container map-card">
+            <div>
+              <MapPin />
+              <span>
+                <strong>E-Power em Icaraí</strong>
+                {siteConfig.address}
+              </span>
+            </div>
+            <ExternalLink href={siteConfig.mapsUrl} className="text-link">
+              Abrir no Google Maps
+            </ExternalLink>
           </div>
         </section>
       </main>
       <Footer />
       <FloatingWhatsApp />
     </>
+  );
+}
+
+function Benefit({
+  title,
+  description,
+  icon: Icon,
+}: (typeof workshopBenefits)[number]) {
+  return (
+    <article className="benefit-item">
+      <span>
+        <Icon />
+      </span>
+      <div>
+        <h3>{title}</h3>
+        <p>{description}</p>
+      </div>
+    </article>
   );
 }

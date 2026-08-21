@@ -1,4 +1,4 @@
-import { ArrowUpRight, Zap } from "lucide-react";
+import { ArrowUpRight, Wrench } from "lucide-react";
 import type { ReactNode } from "react";
 
 export function InstagramIcon() {
@@ -26,7 +26,7 @@ export function Logo({ compact = false }: { compact?: boolean }) {
       aria-label="E-Power — Oficina de Bikes e Scooters Elétricas"
     >
       <span className="logo-mark" aria-hidden="true">
-        <Zap size={compact ? 16 : 19} fill="currentColor" />
+        <Wrench size={compact ? 16 : 19} />
       </span>
       <span>
         <strong>E-POWER</strong>
@@ -49,10 +49,7 @@ export function SectionHeading({
 }) {
   return (
     <div className={`section-heading ${align === "center" ? "center" : ""}`}>
-      <span className="eyebrow">
-        <Zap size={14} fill="currentColor" />
-        {eyebrow}
-      </span>
+      <span className="eyebrow">{eyebrow}</span>
       <h2>{title}</h2>
       {description && <p>{description}</p>}
     </div>

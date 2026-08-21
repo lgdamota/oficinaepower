@@ -102,8 +102,8 @@ try {
   );
 
   check(
-    (await page.locator("#servicos .specialized-service-card").count()) === 9,
-    "A seção de serviços não contém os 9 cards esperados.",
+    (await page.locator("#servicos .service-capsule").count()) === 6,
+    "A seção de serviços não contém as 6 categorias esperadas.",
   );
   await page.locator("#inicio a[href='#servicos']").click();
   await page.waitForTimeout(500);
@@ -120,8 +120,8 @@ try {
 
   const faqButtons = page.locator(".faq-item button");
   check(
-    (await faqButtons.count()) === 10,
-    "O FAQ não contém as 10 perguntas esperadas.",
+    (await faqButtons.count()) === 8,
+    "O FAQ não contém as 8 perguntas esperadas.",
   );
   await faqButtons.nth(1).click();
   check(
@@ -140,10 +140,7 @@ try {
 
   const waLinks = page.locator("a[href^='https://wa.me/']");
   const waCount = await waLinks.count();
-  check(
-    waCount >= 10,
-    `Foram encontrados apenas ${waCount} links de WhatsApp.`,
-  );
+  check(waCount >= 9, `Foram encontrados apenas ${waCount} links de WhatsApp.`);
   for (let index = 0; index < waCount; index += 1) {
     const href = await waLinks.nth(index).getAttribute("href");
     check(
@@ -156,14 +153,14 @@ try {
     );
   }
   const serviceLinks = page.locator(
-    "#servicos .specialized-service-card a[href^='https://wa.me/']",
+    "#servicos .service-capsule[href^='https://wa.me/']",
   );
   for (let index = 0; index < (await serviceLinks.count()); index += 1) {
     const href = await serviceLinks.nth(index).getAttribute("href");
     check(
       href
         ? decodeURIComponent(href).includes(
-            "Conheci a E-Power pelo site e gostaria de solicitar uma avaliação para o serviço de",
+            "Conheci a E-Power pelo site e gostaria de agendar uma avaliação para o serviço de",
           )
         : false,
       `Mensagem dinâmica de serviço inválida: ${href}`,
@@ -177,11 +174,10 @@ try {
     "O formulário não exibiu erro ao ser enviado vazio.",
   );
   await form.getByLabel("Nome").fill("Cliente Teste");
-  await form.getByLabel("Telefone").fill("(21) 99999-9999");
   await form
     .getByLabel("Tipo de veículo")
     .selectOption({ label: "Bike elétrica" });
-  await form.getByLabel("Assunto").fill("Avaliação");
+  await form.getByLabel("Serviço desejado").fill("Avaliação");
   await form.getByLabel("Mensagem").fill("Gostaria de avaliar meu veículo.");
 
   await page.evaluate(() => {

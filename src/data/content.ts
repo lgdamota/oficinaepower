@@ -2,173 +2,167 @@ import type { LucideIcon } from "lucide-react";
 import {
   BatteryCharging,
   Bike,
-  CheckCircle2,
-  ClipboardCheck,
+  CircleGauge,
+  Disc3,
+  Gauge,
   MessagesSquare,
-  PackageCheck,
   ScanSearch,
+  Settings2,
   ShieldCheck,
   SlidersHorizontal,
-  Sparkles,
   Wrench,
+  Zap,
 } from "lucide-react";
 
-export type Feature = { title: string; description?: string; icon: LucideIcon };
+export type EditorialItem = {
+  title: string;
+  description: string;
+  icon: LucideIcon;
+};
 
-// Lista editorial provisória. Valide cada item com a E-Power antes da publicação final.
-// Os textos evitam confirmar procedimentos específicos sem uma avaliação da equipe.
-export const services: Feature[] = [
+// Benefícios editoriais. Valide o escopo de cada item com a E-Power antes da publicação.
+export const workshopBenefits: EditorialItem[] = [
   {
-    title: "Diagnóstico técnico",
+    title: "Diagnóstico especializado",
     description:
-      "Avaliação inicial para identificar as necessidades da sua bike ou scooter elétrica.",
+      "Avaliação inicial para entender o veículo e orientar os próximos passos.",
     icon: ScanSearch,
   },
   {
-    title: "Manutenção preventiva",
+    title: "Revisão mecânica",
     description:
-      "Verificações preventivas definidas conforme as condições e necessidades do veículo.",
-    icon: ClipboardCheck,
-  },
-  {
-    title: "Revisão de bikes elétricas",
-    description:
-      "Avaliação dos itens da bike elétrica conforme o relato e a análise técnica.",
-    icon: Bike,
-  },
-  {
-    title: "Revisão de scooters elétricas",
-    description:
-      "Avaliação direcionada às necessidades apresentadas pela scooter elétrica.",
-    icon: SlidersHorizontal,
-  },
-  {
-    title: "Avaliação de componentes elétricos",
-    description:
-      "Análise dos componentes elétricos aplicáveis após avaliação da equipe.",
+      "Verificação dos componentes mecânicos conforme a necessidade identificada.",
     icon: Wrench,
   },
   {
-    title: "Avaliação de freios e suspensão",
+    title: "Avaliação de freios",
     description:
-      "Verificação técnica desses componentes de acordo com o veículo atendido.",
+      "Análise do sistema de frenagem de acordo com as condições do veículo.",
     icon: ShieldCheck,
   },
   {
-    title: "Verificação de bateria e sistema de carga",
+    title: "Verificação de bateria",
     description:
-      "Avaliação do conjunto de bateria e carga conforme a compatibilidade do veículo.",
+      "Avaliação possível conforme as características e a compatibilidade do sistema.",
     icon: BatteryCharging,
   },
   {
-    title: "Substituição de peças",
+    title: "Sistema elétrico",
     description:
-      "Possibilidade de substituição sujeita à avaliação e à compatibilidade da peça.",
-    icon: PackageCheck,
+      "Análise dos componentes elétricos aplicáveis após avaliação da equipe.",
+    icon: Zap,
   },
   {
-    title: "Orientação técnica",
+    title: "Atendimento transparente",
     description:
-      "Informações para ajudar você a cuidar do uso e da manutenção do veículo.",
+      "Orientação clara sobre o que foi identificado antes da realização do serviço.",
     icon: MessagesSquare,
   },
 ];
 
-export const trustPoints: Feature[] = [
-  { title: "Diagnóstico especializado", icon: ScanSearch },
-  { title: "Avaliação de componentes", icon: ShieldCheck },
-  { title: "Atendimento de confiança", icon: CheckCircle2 },
-];
-
-export const workshopFeatures: Feature[] = [
-  { title: "Avaliação técnica", icon: ClipboardCheck },
-  { title: "Manutenção especializada", icon: Wrench },
-  { title: "Atendimento transparente", icon: MessagesSquare },
+// Categorias exibidas na seção escura e usadas nas mensagens dinâmicas do WhatsApp.
+export const serviceCategories: EditorialItem[] = [
   {
-    title: "Atendimento para bikes e scooters elétricas",
+    title: "Freios",
+    description:
+      "Avaliação de componentes e funcionamento do sistema de frenagem.",
+    icon: Disc3,
+  },
+  {
+    title: "Suspensão",
+    description:
+      "Verificação do conjunto conforme o tipo e a condição do veículo.",
+    icon: SlidersHorizontal,
+  },
+  {
+    title: "Transmissão",
+    description:
+      "Análise dos componentes responsáveis pela transmissão do movimento.",
+    icon: Settings2,
+  },
+  {
+    title: "Rodas e pneus",
+    description:
+      "Avaliação das condições gerais de rodas, pneus e itens relacionados.",
+    icon: CircleGauge,
+  },
+  {
+    title: "Bateria e carga",
+    description:
+      "Verificação possível conforme o sistema e a compatibilidade do veículo.",
     icon: BatteryCharging,
   },
-];
-
-export type Testimonial = {
-  name: string;
-  text: string;
-  rating: number;
-  placeholder: true;
-};
-
-// CONTEÚDO PROVISÓRIO: substitua exclusivamente por avaliações verdadeiras e autorizadas.
-export const testimonials: Testimonial[] = [
   {
-    name: "Avaliação real em breve",
-    text: "Este espaço está preparado para receber o relato de um cliente E-Power.",
-    rating: 5,
-    placeholder: true,
-  },
-  {
-    name: "Avaliação real em breve",
-    text: "Depoimento provisório. Atualize este conteúdo quando houver uma avaliação verificada.",
-    rating: 5,
-    placeholder: true,
-  },
-  {
-    name: "Avaliação real em breve",
-    text: "A experiência de clientes reais poderá ser apresentada aqui de forma transparente.",
-    rating: 5,
-    placeholder: true,
+    title: "Sistema elétrico",
+    description:
+      "Avaliação técnica dos componentes elétricos aplicáveis ao atendimento.",
+    icon: Gauge,
   },
 ];
+
+export const workshopFacts = [
+  { title: "Atendimento em Icaraí", icon: Bike },
+  { title: "Foco em mobilidade elétrica", icon: Zap },
+  { title: "Avaliação individual do veículo", icon: ScanSearch },
+] as const;
 
 export const faqItems = [
   {
     question: "Quais tipos de bikes e scooters vocês atendem?",
     answer:
-      "A E-Power presta assistência para bikes e scooters elétricas. Para confirmar se podemos atender o seu veículo, envie as informações dele para nossa equipe pelo WhatsApp.",
+      "A E-Power presta assistência para bikes e scooters elétricas. Para confirmar o atendimento do seu veículo, envie as informações para a equipe pelo WhatsApp.",
   },
   {
-    question: "É necessário agendar o atendimento?",
+    question: "É necessário agendar a avaliação?",
     answer:
-      "Recomendamos falar com a equipe pelo WhatsApp antes da visita para organizar o atendimento.",
+      "Recomendamos falar com a equipe pelo WhatsApp antes da visita para organizar o atendimento e compartilhar informações sobre o veículo.",
   },
   {
-    question: "Como funciona a avaliação técnica?",
+    question: "Como funciona o diagnóstico?",
     answer:
-      "A equipe analisa o veículo e as informações relatadas para orientar os próximos passos. Consulte a E-Power pelo WhatsApp para saber como encaminhar o seu caso.",
+      "A equipe considera o relato apresentado e avalia o veículo para orientar os próximos passos. O escopo depende de cada caso.",
   },
   {
     question: "Vocês realizam manutenção preventiva?",
     answer:
-      "A necessidade e o escopo da manutenção preventiva dependem da avaliação de cada veículo. Fale com a equipe para receber uma orientação inicial.",
+      "A necessidade e o escopo da manutenção preventiva dependem da avaliação individual. Consulte a equipe para receber uma orientação inicial.",
   },
   {
     question: "Vocês avaliam bateria e sistema de carga?",
     answer:
-      "A possibilidade de avaliação depende das características do veículo e do sistema. Envie os dados da sua bike ou scooter pelo WhatsApp para consultar a equipe.",
+      "A possibilidade de avaliação depende das características e da compatibilidade do sistema. Envie os dados do veículo pelo WhatsApp.",
   },
   {
     question: "Vocês trabalham com peças de reposição?",
     answer:
-      "A substituição depende da peça necessária e da compatibilidade com o veículo. A equipe pode orientar você após a avaliação técnica.",
+      "A substituição depende da peça necessária e da compatibilidade com o veículo. A equipe poderá orientar após a avaliação.",
   },
   {
     question: "Quanto tempo leva uma avaliação?",
     answer:
-      "O prazo varia conforme o veículo e a análise necessária. Consulte a equipe pelo WhatsApp para receber uma orientação sobre o atendimento.",
+      "O prazo varia conforme o veículo e a análise necessária. Consulte a equipe pelo WhatsApp para uma orientação sobre o atendimento.",
   },
   {
-    question: "Como posso solicitar um orçamento?",
+    question: "Como solicito um orçamento?",
     answer:
-      "Você pode usar o formulário deste site ou falar diretamente com a E-Power pelo WhatsApp. Envie o tipo de veículo e uma breve descrição do que precisa.",
+      "Fale com a E-Power pelo WhatsApp ou use o formulário do site, informando o tipo de veículo e uma breve descrição do que precisa.",
   },
-  {
-    question: "Quais são as formas de pagamento?",
-    answer:
-      "Consulte a equipe pelo WhatsApp para confirmar as formas de pagamento aceitas no atendimento.",
-  },
-  {
-    question: "Onde a oficina está localizada?",
-    answer: "Estamos na Rua Gavião Peixoto, 31, em Icaraí, Niterói/RJ.",
-  },
-];
+] as const;
 
-export const decorativeIcons = { Sparkles };
+// Não publique avaliações fictícias. Preencha somente com conteúdo real e autorizado.
+export const testimonials: Array<{
+  name: string;
+  text: string;
+  rating: number;
+}> = [];
+
+// Imagens ilustrativas geradas para compor o site. Substitua por fotografias reais da
+// E-Power quando elas estiverem disponíveis.
+export const siteImages = {
+  hero: "/images/epower-hero.jpg",
+  benefits: "/images/epower-bike-eletrica.jpg",
+  services: "/images/epower-oficina.jpg",
+  about: "/images/epower-fachada.jpg",
+  faq: "/images/epower-scooter.jpg",
+  finalCta: "/images/epower-neon.jpg",
+} as const;

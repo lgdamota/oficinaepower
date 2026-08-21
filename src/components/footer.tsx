@@ -10,7 +10,7 @@ export function Footer() {
         <div className="footer-brand">
           <Logo />
           <p>{siteConfig.tagline}</p>
-          <strong>E-Power — Cuidado para sua mobilidade elétrica.</strong>
+          <strong>E-Power — Mobilidade elétrica inteligente.</strong>
         </div>
         <div>
           <h3>Navegação</h3>
@@ -26,7 +26,7 @@ export function Footer() {
           <h3>Fale com a gente</h3>
           <a
             href={createWhatsAppUrl(
-              "Olá! Conheci a E-Power pelo site e gostaria de mais informações.",
+              "Olá! Conheci a E-Power pelo site e gostaria de agendar uma avaliação para minha bike ou scooter elétrica.",
             )}
             target="_blank"
             rel="noopener noreferrer"
@@ -79,7 +79,7 @@ export function FloatingWhatsApp() {
     <a
       className="floating-whatsapp"
       href={createWhatsAppUrl(
-        "Olá! Conheci a E-Power pelo site e gostaria de mais informações.",
+        "Olá! Conheci a E-Power pelo site e gostaria de agendar uma avaliação para minha bike ou scooter elétrica.",
       )}
       target="_blank"
       rel="noopener noreferrer"

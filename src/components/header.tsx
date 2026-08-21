@@ -9,6 +9,14 @@ import { Logo } from "./ui";
 export function Header() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("inicio");
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const update = () => setScrolled(window.scrollY > 18);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
 
   useEffect(() => {
     const sections = navItems
@@ -39,7 +47,7 @@ export function Header() {
   }, [open]);
 
   return (
-    <header className="site-header">
+    <header className={`site-header ${scrolled ? "scrolled" : ""}`}>
       <div className="container header-inner">
         <a href="#inicio" className="brand-link" onClick={() => setOpen(false)}>
           <Logo />
@@ -67,7 +75,7 @@ export function Header() {
             rel="noopener noreferrer"
           >
             <MessageCircle size={18} />
-            Agendar atendimento
+            Agendar avaliação
           </a>
         </nav>
         <a
@@ -77,7 +85,7 @@ export function Header() {
           rel="noopener noreferrer"
         >
           <MessageCircle size={18} />
-          Agendar
+          Agendar avaliação
         </a>
         <button
           className="menu-toggle"
