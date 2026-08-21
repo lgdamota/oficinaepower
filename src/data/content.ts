@@ -155,14 +155,3 @@ export const testimonials: Array<{
   text: string;
   rating: number;
 }> = [];
-
-// Imagens ilustrativas geradas para compor o site. Substitua por fotografias reais da
-// E-Power quando elas estiverem disponíveis.
-export const siteImages = {
-  hero: "/images/epower-hero.jpg",
-  benefits: "/images/epower-bike-eletrica.jpg",
-  services: "/images/epower-oficina.jpg",
-  about: "/images/epower-fachada.jpg",
-  faq: "/images/epower-scooter.jpg",
-  finalCta: "/images/epower-neon.jpg",
-} as const;

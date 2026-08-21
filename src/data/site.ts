@@ -7,7 +7,7 @@ export const siteConfig = {
   whatsappNumber: "5521974914677",
   hours: "Consulte o horário de atendimento pelo WhatsApp",
   instagramUrl: "https://www.instagram.com/oficinaepower.niteroi/",
-  googleReviewsUrl: "", // Adicione aqui a URL oficial das avaliações no Google.
+  googleReviewsUrl: "https://share.google/9APNkuX2X1g0Bu7v6",
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=Rua%20Gavi%C3%A3o%20Peixoto%2C%2031%2C%20Icara%C3%AD%2C%20Niter%C3%B3i%2C%20RJ",
   developmentCredit: "Desenvolvido por @Nexorastudiodev", // Crédito opcional, por exemplo: "Desenvolvido por ..."

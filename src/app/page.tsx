@@ -15,7 +15,6 @@ import { Header } from "@/components/header";
 import { ExternalLink, InstagramIcon, SectionHeading } from "@/components/ui";
 import {
   serviceCategories,
-  siteImages,
   testimonials,
   workshopBenefits,
   workshopFacts,
@@ -34,15 +33,15 @@ export default function Home() {
             E-POWER
           </div>
           <div className="container hero-grid">
-            <div className="hero-media editorial-image">
+            <div className="hero-media">
               <Image
-                src={siteImages.hero}
-                alt="Imagem ilustrativa de uma bicicleta elétrica em uma oficina moderna"
+                src="/images/bike2.png"
+                alt="Oficina especializada em bicicleta elétrica"
                 fill
                 priority
+                quality={90}
                 sizes="(max-width: 800px) 100vw, 55vw"
               />
-              <span className="photo-note">Imagem ilustrativa</span>
             </div>
             <div className="hero-copy">
               <span className="eyebrow">
@@ -92,14 +91,14 @@ export default function Home() {
                   <Benefit key={item.title} {...item} />
                 ))}
               </div>
-              <div className="benefits-media editorial-image">
+              <div className="benefits-media">
                 <Image
-                  src={siteImages.benefits}
-                  alt="Imagem ilustrativa de uma bicicleta elétrica em manutenção"
+                  src="/images/oficina3.png"
+                  alt="Área técnica da oficina E-Power especializada em mobilidade elétrica"
                   fill
+                  quality={90}
                   sizes="(max-width: 800px) 100vw, 38vw"
                 />
-                <span className="photo-note">Imagem ilustrativa</span>
               </div>
               <div className="benefit-column">
                 {workshopBenefits.slice(3).map((item) => (
@@ -126,6 +125,15 @@ export default function Home() {
             </ExternalLink>
           </div>
           <div className="container services-layout">
+            <div className="services-media">
+              <Image
+                src="/images/oficina2.png"
+                alt="Serviços mecânicos e técnicos realizados na oficina E-Power"
+                fill
+                quality={90}
+                sizes="(max-width: 800px) 100vw, 38vw"
+              />
+            </div>
             <div className="service-capsules">
               {serviceCategories.map(({ title, description, icon: Icon }) => {
                 const url = createWhatsAppUrl(
@@ -152,34 +160,19 @@ export default function Home() {
                 );
               })}
             </div>
-            <div className="services-media editorial-image">
-              <Image
-                src={siteImages.services}
-                alt="Imagem ilustrativa de uma oficina especializada em bicicletas elétricas"
-                fill
-                sizes="(max-width: 900px) 100vw, 45vw"
-              />
-              <span className="photo-note photo-note-top">
-                Imagem ilustrativa
-              </span>
-              <div className="media-caption">
-                <strong>Manutenção com atenção aos detalhes.</strong>
-                <span>Oficina E-Power — Icaraí</span>
-              </div>
-            </div>
           </div>
         </section>
 
         <section className="section about" id="sobre">
           <div className="container about-grid">
-            <div className="about-media editorial-image">
+            <div className="about-media">
               <Image
-                src={siteImages.about}
-                alt="Imagem ilustrativa da entrada de uma oficina de mobilidade elétrica"
+                src="/images/oficina1.png"
+                alt="Estrutura da oficina E-Power especializada em bikes e scooters elétricas"
                 fill
-                sizes="(max-width: 800px) 100vw, 50vw"
+                quality={90}
+                sizes="(max-width: 800px) 100vw, 48vw"
               />
-              <span className="photo-note">Imagem ilustrativa</span>
             </div>
             <div className="about-copy">
               <SectionHeading
@@ -216,14 +209,6 @@ export default function Home() {
 
         <section className="section faq-section" id="faq">
           <div className="container faq-shell">
-            <Image
-              src={siteImages.faq}
-              alt="Imagem ilustrativa de uma scooter elétrica em uma oficina moderna"
-              fill
-              sizes="100vw"
-            />
-            <div className="faq-overlay" />
-            <span className="photo-note">Imagem ilustrativa</span>
             <div className="faq-card">
               <SectionHeading
                 eyebrow="Perguntas frequentes"
@@ -297,14 +282,6 @@ export default function Home() {
         </section>
 
         <section className="final-cta">
-          <Image
-            src={siteImages.finalCta}
-            alt="Imagem ilustrativa de bicicleta e scooter elétricas em uma oficina"
-            fill
-            sizes="100vw"
-          />
-          <div className="final-cta-overlay" />
-          <span className="photo-note">Imagem ilustrativa</span>
           <div className="container final-cta-content">
             <span className="eyebrow">Atendimento em Icaraí</span>
             <h2>Sua bike ou scooter precisa de atenção?</h2>
@@ -386,6 +363,13 @@ export default function Home() {
                 >
                   <Navigation />
                   Traçar rota
+                </ExternalLink>
+                <ExternalLink
+                  href={siteConfig.googleReviewsUrl}
+                  className="button secondary"
+                >
+                  <Star />
+                  Ver avaliações no Google
                 </ExternalLink>
               </div>
               {siteConfig.instagramUrl && (
