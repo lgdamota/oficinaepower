@@ -1,7 +1,7 @@
-import { AtSign, MapPin, MessageCircle } from "lucide-react";
+import { MapPin, MessageCircle } from "lucide-react";
 import { navItems, siteConfig } from "@/data/site";
 import { createWhatsAppUrl } from "@/lib/whatsapp";
-import { Logo } from "./ui";
+import { InstagramIcon, Logo } from "./ui";
 
 export function Footer() {
   return (
@@ -40,12 +40,12 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <AtSign />
+              <InstagramIcon />
               Instagram
             </a>
           ) : (
             <span className="muted-link">
-              <AtSign />
+              <InstagramIcon />
               Instagram oficial em breve
             </span>
           )}

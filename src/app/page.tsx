@@ -2,7 +2,6 @@ import Image from "next/image";
 import {
   ArrowDown,
   Clock3,
-  AtSign,
   MapPin,
   MessageCircle,
   Navigation,
@@ -14,7 +13,7 @@ import { Header } from "@/components/header";
 import { FaqAccordion } from "@/components/faq";
 import { ContactForm } from "@/components/contact-form";
 import { FloatingWhatsApp, Footer } from "@/components/footer";
-import { ExternalLink, SectionHeading } from "@/components/ui";
+import { ExternalLink, InstagramIcon, SectionHeading } from "@/components/ui";
 import {
   services,
   testimonials,
@@ -392,12 +391,12 @@ export default function Home() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <AtSign />
+                    <InstagramIcon />
                     Siga a E-Power no Instagram
                   </a>
                 ) : (
                   <span className="social-link disabled">
-                    <AtSign />
+                    <InstagramIcon />
                     Instagram oficial em breve
                   </span>
                 )}
