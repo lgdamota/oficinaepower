@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Sora } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
 import { UnitSelectorProvider } from "@/components/unit-selector";
 import { siteConfig } from "@/data/site";
 import { units } from "@/data/units";
@@ -8,13 +8,13 @@ import "./globals.css";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500"],
   display: "swap",
 });
-const sora = Sora({
-  variable: "--font-sora",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
-  weight: ["600", "700", "800"],
+  weight: ["600", "700"],
   display: "swap",
 });
 
@@ -76,7 +76,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${inter.variable} ${sora.variable}`}
+      className={`${inter.variable} ${spaceGrotesk.variable}`}
       suppressHydrationWarning
     >
       <body>
