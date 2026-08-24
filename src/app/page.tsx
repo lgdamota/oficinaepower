@@ -93,7 +93,7 @@ export default function Home() {
               </div>
               <div className="benefits-media">
                 <Image
-                  src="/images/oficina3.png"
+                  src="/images/oficina3-atualizada.png"
                   alt="Área técnica da oficina E-Power especializada em mobilidade elétrica"
                   fill
                   quality={90}
