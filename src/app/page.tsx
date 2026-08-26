@@ -93,7 +93,7 @@ export default function Home() {
               </div>
               <div className="benefits-media">
                 <Image
-                  src="/images/oficina3-atualizada.png"
+                  src="/images/oficina3-nova.png"
                   alt="Área técnica da oficina E-Power especializada em mobilidade elétrica"
                   fill
                   quality={90}
@@ -125,7 +125,7 @@ export default function Home() {
           <div className="container services-layout">
             <div className="services-media">
               <Image
-                src="/images/oficina2.png"
+                src="/images/oficina2-nova.png"
                 alt="Serviços mecânicos e técnicos realizados na oficina E-Power"
                 fill
                 quality={90}
