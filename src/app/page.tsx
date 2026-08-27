@@ -40,7 +40,7 @@ export default function Home() {
                 fill
                 priority
                 quality={90}
-                sizes="(max-width: 800px) 100vw, 55vw"
+                sizes="(max-width: 800px) calc(100vw - 32px), (max-width: 1240px) 52vw, 720px"
               />
             </div>
             <div className="hero-copy">
@@ -97,7 +97,7 @@ export default function Home() {
                   alt="Área técnica da oficina E-Power especializada em mobilidade elétrica"
                   fill
                   quality={90}
-                  sizes="(max-width: 800px) 100vw, 38vw"
+                  sizes="(max-width: 800px) min(calc(100vw - 32px), 500px), 450px"
                 />
               </div>
               <div className="benefit-column">
@@ -129,7 +129,7 @@ export default function Home() {
                 alt="Serviços mecânicos e técnicos realizados na oficina E-Power"
                 fill
                 quality={90}
-                sizes="(max-width: 800px) 100vw, 38vw"
+                sizes="(max-width: 600px) calc(100vw - 28px), (max-width: 1050px) min(calc(100vw - 48px), 720px), 38vw"
               />
             </div>
             <div className="service-capsules">
@@ -165,7 +165,7 @@ export default function Home() {
                 alt="Estrutura da oficina E-Power especializada em bikes e scooters elétricas"
                 fill
                 quality={90}
-                sizes="(max-width: 800px) 100vw, 48vw"
+                sizes="(max-width: 800px) calc(100vw - 32px), (max-width: 1240px) 46vw, 575px"
               />
             </div>
             <div className="about-copy">

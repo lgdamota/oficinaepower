@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Inter, Rajdhani } from "next/font/google";
 import { UnitSelectorProvider } from "@/components/unit-selector";
 import { siteConfig } from "@/data/site";
 import { units } from "@/data/units";
@@ -11,8 +11,8 @@ const inter = Inter({
   weight: ["400", "500"],
   display: "swap",
 });
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+const rajdhani = Rajdhani({
+  variable: "--font-rajdhani",
   subsets: ["latin"],
   weight: ["600", "700"],
   display: "swap",
@@ -45,8 +45,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/images/epower-hero.svg",
-        width: 1200,
-        height: 630,
+        width: 1600,
+        height: 950,
         alt: "E-Power — oficina de bikes e scooters elétricas no Rio e em Niterói",
       },
     ],
@@ -76,7 +76,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${inter.variable} ${spaceGrotesk.variable}`}
+      className={`${inter.variable} ${rajdhani.variable}`}
       suppressHydrationWarning
     >
       <body>
